@@ -1,0 +1,38 @@
+:root {
+  --bg-0: #040915;
+  --bg-1: #071021;
+  --bg-2: #0b1730;
+  --panel: rgba(9, 18, 35, 0.76);
+  --panel-strong: rgba(6, 12, 25, 0.9);
+  --panel-soft: rgba(10, 20, 37, 0.62);
+  --line: rgba(0, 247, 255, 0.2);
+  --line-strong: rgba(0, 247, 255, 0.55);
+  --line-hot: rgba(255, 79, 139, 0.42);
+  --text-0: #ebfeff;
+  --text-1: #a3c2d6;
+  --text-2: #6d889d;
+  --accent: #00f7ff;
+  --accent-2: #ff4f8b;
+  --accent-3: #ffd166;
+  --success: #61ffb6;
+  --danger: #ff7d8e;
+  --shadow-neon:
+    0 0 0 1px rgba(0, 247, 255, 0.18),
+    0 0 32px rgba(0, 247, 255, 0.1),
+    inset 0 0 18px rgba(0, 247, 255, 0.06);
+  --shadow-hot:
+    0 0 0 1px rgba(255, 79, 139, 0.2),
+    0 0 30px rgba(255, 79, 139, 0.1);
+  --radius-lg: 28px;
+  --radius-md: 20px;
+  --radius-sm: 14px;
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 18px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --font-display:
+    "Rajdhani", "Orbitron", "DIN Alternate", "Avenir Next Condensed", sans-serif;
+  --font-mono:
+    "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", "Menlo", monospace;
+}

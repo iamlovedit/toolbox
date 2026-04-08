@@ -1,0 +1,117 @@
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  background:
+    radial-gradient(circle at 12% 22%, rgba(0, 247, 255, 0.16), transparent 22%),
+    radial-gradient(circle at 82% 15%, rgba(255, 79, 139, 0.14), transparent 26%),
+    radial-gradient(circle at 72% 78%, rgba(0, 247, 255, 0.1), transparent 22%),
+    linear-gradient(
+      135deg,
+      rgba(0, 247, 255, 0.05),
+      transparent 42%,
+      rgba(255, 79, 139, 0.05) 72%,
+      transparent 100%
+    );
+  animation: drift 22s linear infinite alternate;
+  pointer-events: none;
+}
+
+.screen-noise,
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.screen-noise {
+  opacity: 0.08;
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.55) 0.7px,
+    transparent 0.7px
+  );
+  background-size: 6px 6px;
+  mix-blend-mode: soft-light;
+  animation: noiseShift 0.35s steps(3) infinite;
+}
+
+.scanlines {
+  opacity: 0.16;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04) 0,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+
+.brand h1,
+.tool-badge {
+  animation: pulseGlow 4.2s ease-in-out infinite;
+}
+
+.panel,
+.tool-nav__button {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.panel:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(0, 247, 255, 0.24),
+    0 0 36px rgba(0, 247, 255, 0.12),
+    inset 0 0 18px rgba(0, 247, 255, 0.08);
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 12px rgba(0, 247, 255, 0.18),
+      0 0 24px rgba(0, 247, 255, 0.1);
+  }
+
+  45% {
+    text-shadow:
+      -1px 0 rgba(255, 79, 139, 0.28),
+      1px 0 rgba(0, 247, 255, 0.42),
+      0 0 20px rgba(0, 247, 255, 0.22);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(3%, -2%, 0) scale(1.03);
+  }
+}
+
+@keyframes noiseShift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: translate3d(1px, -1px, 0);
+  }
+
+  50% {
+    transform: translate3d(-1px, 1px, 0);
+  }
+
+  75% {
+    transform: translate3d(0, 1px, 0);
+  }
+
+  100% {
+    transform: translate3d(1px, 0, 0);
+  }
+}
