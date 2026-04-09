@@ -12,7 +12,8 @@ import type { StatusTone, ToolDefinition } from "@/types";
 const copy = {
   en: {
     name: "AES Vault",
-    description: "Encrypt or decrypt text with AES-GCM using a passphrase-derived key package.",
+    description:
+      "Encrypt or decrypt text with AES-GCM using a passphrase-derived key package.",
     hint: "Enter a passphrase, then encrypt plaintext into a portable JSON package.",
     controlDeck: "Control Deck",
     passphrase: "Passphrase",
@@ -43,7 +44,8 @@ const copy = {
     passphraseRequired: "Passphrase is required.",
     packageMustBeObject: "Cipher package must be a JSON object.",
     invalidIterations: "Cipher package is missing a valid iterations value.",
-    invalidFields: "Cipher package must contain base64 salt, iv, and ciphertext fields.",
+    invalidFields:
+      "Cipher package must contain base64 salt, iv, and ciphertext fields.",
     encryptedStatus: "Plaintext encrypted into AES-GCM package.",
     encryptedHint: "AES-GCM package generated locally.",
     encryptedToast: "AES package generated.",
@@ -51,7 +53,8 @@ const copy = {
     decryptedHint: "AES-GCM package decrypted back to plaintext.",
     decryptedToast: "AES package decrypted.",
     encryptionFailed: "AES encryption failed.",
-    decryptionFailed: "AES decryption failed. Check the passphrase and package.",
+    decryptionFailed:
+      "AES decryption failed. Check the passphrase and package.",
     encryptionFailedToast: "AES encryption failed.",
     decryptionFailedToast: "AES decryption failed.",
     packageCopied: "AES package copied.",
@@ -91,7 +94,8 @@ const copy = {
     passphraseRequired: "必须输入口令。",
     packageMustBeObject: "密文数据包必须是 JSON 对象。",
     invalidIterations: "密文数据包缺少合法的 iterations 值。",
-    invalidFields: "密文数据包必须包含 base64 格式的 salt、iv 和 ciphertext 字段。",
+    invalidFields:
+      "密文数据包必须包含 base64 格式的 salt、iv 和 ciphertext 字段。",
     encryptedStatus: "明文已加密为 AES-GCM 数据包。",
     encryptedHint: "已在本地生成 AES-GCM 数据包。",
     encryptedToast: "AES 数据包已生成。",
@@ -249,7 +253,9 @@ function AesToolComponent(): JSX.Element {
                 showToast(text.encryptedToast, "success");
               } catch (error) {
                 const message =
-                  error instanceof Error ? error.message : text.encryptionFailed;
+                  error instanceof Error
+                    ? error.message
+                    : text.encryptionFailed;
                 setStatus(localizeError(message, text));
                 setStatusTone("error");
                 showToast(text.encryptionFailedToast, "error");
@@ -280,7 +286,10 @@ function AesToolComponent(): JSX.Element {
               }
 
               try {
-                const decrypted = await decryptAesPackage(passphrase, cipherPackage);
+                const decrypted = await decryptAesPackage(
+                  passphrase,
+                  cipherPackage,
+                );
                 setPlaintext(decrypted.plaintext);
                 setIterations(decrypted.parsed.iterations);
                 setStatus(text.decryptedStatus);
@@ -289,7 +298,9 @@ function AesToolComponent(): JSX.Element {
                 showToast(text.decryptedToast, "success");
               } catch (error) {
                 const message =
-                  error instanceof Error ? error.message : text.decryptionFailed;
+                  error instanceof Error
+                    ? error.message
+                    : text.decryptionFailed;
                 setStatus(localizeError(message, text));
                 setStatusTone("error");
                 showToast(text.decryptionFailedToast, "error");
@@ -335,7 +346,9 @@ function AesToolComponent(): JSX.Element {
         <section className="panel panel-block">
           <div className="panel__header">
             <h3 className="panel__title">{text.plaintext}</h3>
-            <div className="panel__meta">{metric("chars", plaintext.length)}</div>
+            <div className="panel__meta">
+              {metric("chars", plaintext.length)}
+            </div>
           </div>
           <label className="field">
             <span>{text.sourceText}</span>
@@ -351,7 +364,9 @@ function AesToolComponent(): JSX.Element {
         <section className="panel panel-block">
           <div className="panel__header">
             <h3 className="panel__title">{text.cipherPackage}</h3>
-            <div className="panel__meta">{metric("chars", cipherPackage.length)}</div>
+            <div className="panel__meta">
+              {metric("chars", cipherPackage.length)}
+            </div>
           </div>
           <label className="field">
             <span>{text.packageLabel}</span>

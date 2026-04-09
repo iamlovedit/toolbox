@@ -1,6 +1,4 @@
-:root {
-  color-scheme: dark;
-}
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
 
 *,
 *::before,
@@ -15,14 +13,26 @@ body,
   min-height: 100%;
 }
 
+html {
+  background: var(--bg-0);
+}
+
 body {
   min-height: 100vh;
-  background: #040915;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top, rgba(10, 10, 32, 0.92), transparent 54%),
+    radial-gradient(circle at bottom, rgba(0, 20, 40, 0.8), transparent 48%),
+    var(--bg-0);
   color: var(--text-0);
-  font-family: var(--font-mono);
-  line-height: 1.5;
+  font-family: var(--font-display);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+#root {
+  isolation: isolate;
 }
 
 button,
@@ -54,6 +64,29 @@ button {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+::selection {
+  background: rgba(0, 240, 255, 0.24);
+  color: var(--text-0);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.28);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 240, 255, 0.42);
 }
 
 [hidden] {

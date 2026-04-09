@@ -8,6 +8,9 @@ describe("app shell", () => {
     expect(
       screen.getByRole("heading", { name: "Base64 Matrix" }),
     ).toBeInTheDocument();
+    expect(
+      document.querySelector(".workspace__hero .hero__scanline[aria-hidden='true']"),
+    ).not.toBeNull();
   });
 
   it("switches tools through navigation and marks the active tool", async () => {
