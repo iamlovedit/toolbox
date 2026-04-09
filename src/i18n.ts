@@ -12,7 +12,7 @@ const dictionaries = {
       language: "LANG",
       languageEnglish: "EN",
       languageChinese: "中",
-      brandKicker: "OFFLINE TOOL DECK",
+      brandKicker: "[ OFFLINE TOOL DECK ]",
       brandDescription:
         "A cyberpunk utility board for encoding, crypto, parsing and diagnostic chores.",
       navLabel: "Tool Navigation",
@@ -23,10 +23,10 @@ const dictionaries = {
       awaitingPayload: "Awaiting payload...",
     },
     groups: {
-      encode: "Encode",
-      crypto: "Crypto",
-      parser: "Parser",
-      text: "Text",
+      encode: "[ Encode ]",
+      crypto: "[ Crypto ]",
+      parser: "[ Parser ]",
+      text: "[ Text ]",
     },
     metrics: {
       chars: ({ count }: { count: number }) => `${count} chars`,
@@ -52,7 +52,7 @@ const dictionaries = {
       language: "语言",
       languageEnglish: "EN",
       languageChinese: "中",
-      brandKicker: "离线工具甲板",
+      brandKicker: "[ 离线工具甲板 ]",
       brandDescription:
         "一个带赛博朋克界面的本地开发者工具台，覆盖编码、加密、解析和日常诊断。",
       navLabel: "工具导航",
@@ -63,10 +63,10 @@ const dictionaries = {
       awaitingPayload: "等待输入...",
     },
     groups: {
-      encode: "编码",
-      crypto: "加密",
-      parser: "解析",
-      text: "文本",
+      encode: "[ 编码 ]",
+      crypto: "[ 加密 ]",
+      parser: "[ 解析 ]",
+      text: "[ 文本 ]",
     },
     metrics: {
       chars: ({ count }: { count: number }) => `${count} 字符`,

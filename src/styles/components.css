@@ -84,8 +84,8 @@
 }
 
 .topbar__title {
-  color: var(--text-0);
-  font-size: 15px;
+  color: #00f0ff;
+  font-size: 20px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
   text-shadow: 0 0 14px rgba(0, 240, 255, 0.22);

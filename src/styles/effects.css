@@ -46,25 +46,21 @@ body::before {
 .scanlines {
   opacity: 0.14;
   background:
-    repeating-linear-gradient(
-      180deg,
+    repeating-linear-gradient(180deg,
       rgba(255, 255, 255, 0.04) 0,
       rgba(255, 255, 255, 0.04) 1px,
       transparent 1px,
-      transparent 4px
-    );
+      transparent 4px);
 }
 
 .scan-sweep {
   opacity: 0.2;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    transparent 38%,
-    rgba(0, 240, 255, 0.12) 50%,
-    transparent 62%,
-    transparent 100%
-  );
+  background: linear-gradient(180deg,
+      transparent 0%,
+      transparent 38%,
+      rgba(0, 240, 255, 0.12) 50%,
+      transparent 62%,
+      transparent 100%);
   animation: scanSweep 14s linear infinite;
 }
 
@@ -75,6 +71,8 @@ body::before {
 }
 
 .glitch-text {
+  color: #00f0ff;
+  text-shadow: 0 0 14px #00f0ffe6;
   animation: glitchReveal 300ms steps(2, end) both;
 }
 
@@ -171,7 +169,7 @@ body::before {
 
 .topbar,
 .workspace__hero,
-.tool-stage > *,
+.tool-stage>*,
 .command-bar {
   animation: panelRise 640ms ease-out both;
 }
@@ -209,6 +207,7 @@ body::before {
 }
 
 @keyframes hudBlink {
+
   0%,
   100% {
     opacity: 0.88;
@@ -220,6 +219,7 @@ body::before {
 }
 
 @keyframes fadePulse {
+
   0%,
   100% {
     opacity: 0.94;
@@ -298,6 +298,7 @@ body::before {
 }
 
 @keyframes glitchEchoCyan {
+
   0%,
   100% {
     opacity: 0;
@@ -323,6 +324,7 @@ body::before {
 }
 
 @keyframes glitchEchoPink {
+
   0%,
   100% {
     opacity: 0;
@@ -365,6 +367,7 @@ body::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
