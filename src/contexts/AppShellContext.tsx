@@ -60,7 +60,9 @@ export function AppShellProvider({
 }: {
   children: React.ReactNode;
 }): JSX.Element {
-  const [language, setLanguageState] = useState<Language>(detectInitialLanguage);
+  const [language, setLanguageState] = useState<Language>(
+    detectInitialLanguage,
+  );
   const [commandHint, setCommandHint] = useState("");
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [dialog, setDialog] = useState<DialogMessage | null>(null);
@@ -87,7 +89,8 @@ export function AppShellProvider({
   );
 
   const metric = useCallback(
-    (name: MetricName, count: number) => metricForLanguage(language, name, count),
+    (name: MetricName, count: number) =>
+      metricForLanguage(language, name, count),
     [language],
   );
 
@@ -203,7 +206,9 @@ export function AppShellProvider({
   );
 
   return (
-    <AppShellContext.Provider value={value}>{children}</AppShellContext.Provider>
+    <AppShellContext.Provider value={value}>
+      {children}
+    </AppShellContext.Provider>
   );
 }
 
