@@ -41,7 +41,9 @@ describe("app shell", () => {
     unmount();
 
     renderApp("/tools/hash");
-    expect(screen.getByRole("heading", { name: "摘要反应堆" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "摘要反应堆" }),
+    ).toBeInTheDocument();
   });
 
   it("falls back to the default tool for unknown tool ids", () => {
@@ -89,7 +91,9 @@ describe("app shell", () => {
 
     await user.click(screen.getByRole("button", { name: "中" }));
     await user.click(screen.getByRole("button", { name: "编码" }));
-    expect(screen.getByRole("dialog", { name: "输入缺失" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("dialog", { name: "输入缺失" }),
+    ).toBeInTheDocument();
     expect(
       screen.getByText("请先填写UTF-8 文本 / Base64 数据块。"),
     ).toBeInTheDocument();

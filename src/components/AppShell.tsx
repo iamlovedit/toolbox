@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import type { ToolDefinition } from "@/types";
 import { useAppShell } from "@/contexts/AppShellContext";
 import { CyberDialog } from "@/components/CyberDialog";
@@ -12,8 +12,7 @@ export function AppShell({
 }: {
   activeTool: ToolDefinition;
 }): JSX.Element {
-  const { language, metric, pickText, t, commandHint, setCommandHint } =
-    useAppShell();
+  const { language, pickText, t, commandHint, setCommandHint } = useAppShell();
   const ActiveToolComponent = activeTool.component;
   const [clockText, setClockText] = useState("");
 
@@ -38,17 +37,10 @@ export function AppShell({
     return () => window.clearInterval(timerId);
   }, [language]);
 
-  const moduleCount = useMemo(() => metric("modules", tools.length), [metric]);
-
   return (
     <div className="app-shell">
       <header className="topbar">
-        <div className="topbar__status">
-          <span className="signal-dot"></span>
-          <span>{t("app.localNode")}</span>
-          <span className="divider"></span>
-          <span>{moduleCount}</span>
-        </div>
+        <div className="topbar__status"></div>
         <div className="topbar__title">{t("app.topbarTitle")}</div>
         <div className="topbar__actions">
           <LanguageSwitch />
@@ -65,17 +57,13 @@ export function AppShell({
           </div>
 
           <ToolNav tools={tools} activeToolId={activeTool.id} />
-
-          <div className="sidebar__meta">
-            <span className="meta-chip">{t("app.chipHtml")}</span>
-            <span className="meta-chip">{t("app.chipJs")}</span>
-            <span className="meta-chip">{t("app.chipBackend")}</span>
-          </div>
         </aside>
 
         <main className="workspace">
           <section className="workspace__hero panel">
-            <div className="hero__eyebrow">{t(`groups.${activeTool.groupKey}`)}</div>
+            <div className="hero__eyebrow">
+              {t(`groups.${activeTool.groupKey}`)}
+            </div>
             <div className="hero__header">
               <div className="hero__copy">
                 <h2>{pickText(activeTool.name)}</h2>

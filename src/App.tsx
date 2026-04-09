@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
 import { AppShell } from "@/components/AppShell";
 import { AppShellProvider } from "@/contexts/AppShellContext";
-import { toolIds, toolMap } from "@/tools/registry";
+import { toolMap } from "@/tools/registry";
 import { DEFAULT_TOOL_ID } from "@/utils/routing";
 
 function ToolRoute(): JSX.Element {
