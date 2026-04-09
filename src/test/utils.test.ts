@@ -3,15 +3,25 @@ import { parseAesPackage, digestSha256Text } from "@/utils/crypto";
 import { parseDateInput } from "@/utils/dateTime";
 import { textToBase64, base64ToText } from "@/utils/encoding";
 import {
+  escapeHtmlEntities,
+  escapeJsonString,
+  escapeUnicodeString,
+  unescapeHtmlEntities,
+  unescapeJsonString,
+  unescapeUnicodeString,
+} from "@/utils/escape";
+import {
   decodeJwtSegment,
   formatJwtClaimTime,
   formatJwtClaimValue,
 } from "@/utils/jwt";
+import { buildQueryOutput, parseQueryInput } from "@/utils/query";
 import {
   getLegacyToolPath,
   normalizeLegacyHashRoute,
 } from "@/utils/routing";
 import { generatePassword } from "@/utils/password";
+import { jsonToYamlString, yamlToJsonString } from "@/utils/yaml";
 import { toolIds } from "@/tools/registry";
 
 describe("shared utilities", () => {
@@ -67,6 +77,39 @@ describe("shared utilities", () => {
     await expect(digestSha256Text("hello")).resolves.toBe(
       "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
     );
+  });
+
+  it("parses query payloads and rebuilds them with duplicate keys intact", () => {
+    const parsed = parseQueryInput(
+      "https://example.com/search?q=neo&q=trinity&empty=#deck",
+    );
+
+    expect(parsed.isUrl).toBe(true);
+    expect(parsed.baseUrl).toBe("https://example.com/search");
+    expect(parsed.hash).toBe("deck");
+    expect(parsed.rows).toEqual([
+      { key: "q", value: "neo" },
+      { key: "q", value: "trinity" },
+      { key: "empty", value: "" },
+    ]);
+    expect(buildQueryOutput(parsed)).toEqual({
+      query: "q=neo&q=trinity&empty=",
+      url: "https://example.com/search?q=neo&q=trinity&empty=#deck",
+    });
+    expect(
+      buildQueryOutput(parseQueryInput("?draft=1&draft=2#panel")).url,
+    ).toBe("draft=1&draft=2#panel");
+  });
+
+  it("escapes text payloads and bridges yaml content", () => {
+    expect(escapeJsonString("a\"\n")).toBe("a\\\"\\n");
+    expect(unescapeJsonString("a\\\"\\n")).toBe("a\"\n");
+    expect(escapeHtmlEntities("<>&\"'")).toBe("&lt;&gt;&amp;&quot;&#39;");
+    expect(unescapeHtmlEntities("&lt;&gt;&amp;&quot;&#39;")).toBe("<>&\"'");
+    expect(escapeUnicodeString("中A")).toBe("\\u4E2DA");
+    expect(unescapeUnicodeString("\\u4E2D\\x41")).toBe("中A");
+    expect(jsonToYamlString('{"name":"neo","count":2}')).toContain("name: neo");
+    expect(yamlToJsonString("name: neo\ncount: 2")).toContain('"count": 2');
   });
 
   it("generates passwords with guaranteed coverage of selected groups", () => {

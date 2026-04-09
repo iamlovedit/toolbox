@@ -5,14 +5,22 @@ export type ToolGroup = "encode" | "crypto" | "parser" | "text";
 export type ToolId =
   | "base64"
   | "url"
+  | "escape"
+  | "color"
+  | "base"
   | "hash"
   | "aes"
   | "rsa"
   | "json"
+  | "query"
+  | "yaml"
   | "jwt"
   | "timestamp"
+  | "regex"
   | "uuid"
-  | "password";
+  | "password"
+  | "diff"
+  | "case";
 
 export type MetricName = "chars" | "lines" | "modules";
 export type ToastTone = "info" | "success" | "error";

@@ -1,6 +1,7 @@
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { base64Tool } from "@/tools/Base64Tool";
+import { escapeTool } from "@/tools/EscapeTool";
 import { urlTool } from "@/tools/UrlTool";
 import { uuidTool } from "@/tools/UuidTool";
 import { renderTool } from "@/test/render";
@@ -61,7 +62,9 @@ describe("encoding and text tools", () => {
     const Tool = uuidTool.component;
     renderTool(Tool);
 
-    await user.selectOptions(screen.getByLabelText("Count"), "5");
+    const countInput = screen.getByLabelText("Count");
+    await user.clear(countInput);
+    await user.type(countInput, "5");
     await user.click(screen.getByRole("button", { name: "Generate" }));
 
     const output = screen.getByLabelText("UUID List") as HTMLTextAreaElement;
@@ -79,6 +82,58 @@ describe("encoding and text tools", () => {
     );
 
     await user.click(screen.getByRole("button", { name: "Clear" }));
+    expect(output.value).toBe("");
+  });
+
+  it("escapes and unescapes json, html entities, and unicode sequences", async () => {
+    const user = userEvent.setup();
+    const clipboardSpy = vi
+      .spyOn(navigator.clipboard, "writeText")
+      .mockResolvedValue(undefined);
+    const Tool = escapeTool.component;
+    renderTool(Tool);
+
+    const input = screen.getByLabelText("Payload");
+    const output = screen.getByLabelText("Result") as HTMLTextAreaElement;
+
+    await user.click(screen.getByRole("button", { name: "Escape" }));
+    expect(screen.getByRole("dialog", { name: "Missing Input" })).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "OK" }));
+
+    await user.click(input);
+    await user.paste("hello \"world\"\nline2");
+    await user.click(screen.getByRole("button", { name: "Escape" }));
+    expect(output.value).toBe("hello \\\"world\\\"\\nline2");
+
+    await user.click(screen.getByRole("button", { name: "Copy Result" }));
+    await waitFor(() =>
+      expect(clipboardSpy).toHaveBeenCalledWith("hello \\\"world\\\"\\nline2"),
+    );
+
+    await user.click(screen.getByRole("button", { name: "Swap" }));
+    expect((input as HTMLTextAreaElement).value).toBe("hello \\\"world\\\"\\nline2");
+    await user.click(screen.getByRole("button", { name: "Unescape" }));
+    expect(output.value).toBe("hello \"world\"\nline2");
+
+    await user.click(screen.getByRole("button", { name: /HTML Entity/i }));
+    await user.clear(input);
+    await user.type(input, "<div>&\"'");
+    await user.click(screen.getByRole("button", { name: "Escape" }));
+    expect(output.value).toBe("&lt;div&gt;&amp;&quot;&#39;");
+
+    await user.click(screen.getByRole("button", { name: /Unicode Escape/i }));
+    await user.clear(input);
+    await user.type(input, "中A");
+    await user.click(screen.getByRole("button", { name: "Escape" }));
+    expect(output.value).toBe("\\u4E2DA");
+
+    await user.clear(input);
+    await user.type(input, "\\u4E2D\\x41");
+    await user.click(screen.getByRole("button", { name: "Unescape" }));
+    expect(output.value).toBe("中A");
+
+    await user.click(screen.getByRole("button", { name: "Clear" }));
+    expect((input as HTMLTextAreaElement).value).toBe("");
     expect(output.value).toBe("");
   });
 });

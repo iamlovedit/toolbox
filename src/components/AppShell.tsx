@@ -12,8 +12,7 @@ export function AppShell({
 }: {
   activeTool: ToolDefinition;
 }): JSX.Element {
-  const { language, metric, pickText, t, commandHint, setCommandHint } =
-    useAppShell();
+  const { language, pickText, t, commandHint, setCommandHint } = useAppShell();
   const ActiveToolComponent = activeTool.component;
   const [clockText, setClockText] = useState("");
   const brandTitle = t("app.documentTitle");
@@ -59,12 +58,7 @@ export function AppShell({
       ></div>
 
       <header className="topbar">
-        <div className="topbar__status">
-          <span className="signal-dot" aria-hidden="true"></span>
-          <span>{t("app.localNode")}</span>
-          <span className="divider" aria-hidden="true"></span>
-          <span>{metric("modules", tools.length)}</span>
-        </div>
+        <div className="topbar__status" aria-hidden="true"></div>
         <div className="topbar__titleblock">
           <div className="topbar__eyebrow">{t("app.brandKicker")}</div>
           <div className="topbar__title">{t("app.topbarTitle")}</div>
@@ -83,20 +77,8 @@ export function AppShell({
               <h1 className="glitch-text" data-text={brandTitle}>
                 {brandTitle}
               </h1>
-              <span className="brand__status">{t("app.localNode")}</span>
             </div>
             <p>{t("app.brandDescription")}</p>
-            <div className="sidebar__meta">
-              <span className="meta-chip meta-chip--cool">
-                {t("app.chipHtml")}
-              </span>
-              <span className="meta-chip meta-chip--neutral">
-                {t("app.chipJs")}
-              </span>
-              <span className="meta-chip meta-chip--hot">
-                {t("app.chipBackend")}
-              </span>
-            </div>
           </div>
 
           <ToolNav tools={tools} activeToolId={activeTool.id} />
@@ -124,17 +106,6 @@ export function AppShell({
               >
                 {activeTool.badge}
               </div>
-            </div>
-            <div className="hero__stats">
-              <span className="meta-chip meta-chip--cool">
-                {metric("modules", tools.length)}
-              </span>
-              <span className="meta-chip meta-chip--neutral">
-                {t("app.chipJs")}
-              </span>
-              <span className="meta-chip meta-chip--hot">
-                {t("app.localNode")}
-              </span>
             </div>
           </section>
 

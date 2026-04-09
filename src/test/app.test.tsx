@@ -56,6 +56,32 @@ describe("app shell", () => {
     ).toBeInTheDocument();
   });
 
+  it("exposes the new tools in navigation without showing the removed status labels", async () => {
+    const user = userEvent.setup();
+    renderApp("/tools/base64");
+
+    expect(screen.queryByText("18 modules")).not.toBeInTheDocument();
+    expect(screen.queryByText("LOCAL JS")).not.toBeInTheDocument();
+    expect(screen.queryByText("PURE HTML")).not.toBeInTheDocument();
+    expect(screen.queryByText("LOCAL NODE")).not.toBeInTheDocument();
+    expect(screen.queryByText("NO BACKEND")).not.toBeInTheDocument();
+
+    const queryNavLink = screen.getByText("Query Workbench").closest("a");
+    expect(queryNavLink).not.toBeNull();
+    await user.click(queryNavLink!);
+
+    expect(
+      screen.getByRole("heading", { name: "Query Workbench" }),
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "中" }));
+
+    expect(screen.queryByText("本地节点")).not.toBeInTheDocument();
+    expect(screen.queryByText("本地 JS")).not.toBeInTheDocument();
+    expect(screen.queryByText("纯 HTML")).not.toBeInTheDocument();
+    expect(screen.queryByText("无后端")).not.toBeInTheDocument();
+  });
+
   it("shows the cyber dialog for missing input, restores focus, and localizes it", async () => {
     const user = userEvent.setup();
     renderApp("/tools/base64");
