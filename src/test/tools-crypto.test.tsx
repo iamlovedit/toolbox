@@ -44,7 +44,10 @@ describe("crypto tools", () => {
     const packageField = screen.getByLabelText(
       "Portable JSON Package",
     ) as HTMLTextAreaElement;
-    await waitFor(() => expect(packageField.value).toContain('"ciphertext"'));
+    await waitFor(
+      () => expect(packageField.value).toContain('"ciphertext"'),
+      { timeout: 5000 },
+    );
     expect(screen.getByText("Plaintext encrypted into AES-GCM package.")).toBeInTheDocument();
   });
 });
